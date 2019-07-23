@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="resources"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="resources/h2-1.4.197.jar" sourcepath="C:/Users/Сашок/.m2/repository/com/h2database/h2/1.4.197/h2-1.4.197-sources.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
