@@ -3,7 +3,6 @@ package koko;
 import java.util.Date;
 import java.util.List;
 
-import koko.dao.GroupDAO;
 import koko.dao.StudentDAO;
 
 public class Student {
@@ -28,8 +27,6 @@ public class Student {
 		return id;
 	}
 	
-	
-
 	public static List<Student> getAllStudents() {		
 		List<Student> result = StudentDAO.getAllStudents();
 		return result;		
@@ -99,8 +96,4 @@ public class Student {
 	public void setGroup(Group group) {
 		this.group = group;
 	}
-	
-	
-
-
 }

@@ -4,8 +4,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Tables {
-	private static Object[][] array = new String[][] {{ "Сахар" , "кг","1" },{ "Мука"  , "кг","1" },{ "Молоко", "л","1"  }};
-    private static Object[] columnsHeader = new String[] {"Группа №", "Факультет","студентов"};
+	private static Object[][] array;
+    private static Object[] columnsHeader;
     private static boolean groups;  // 0 - groups, 1 - students
     
     public Tables() {

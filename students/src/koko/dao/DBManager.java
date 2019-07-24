@@ -1,6 +1,5 @@
 package koko.dao;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -22,11 +21,9 @@ public class DBManager {
     	Connection conn = getDBConnection();
 		try {
 			RunScript.execute(conn, new FileReader("resources/init_tables.sql"));
-		} catch (FileNotFoundException e1) {	
+		} catch (Exception e1) {	
 			e1.printStackTrace();
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-		}
+		} 
 		Runnable runServer = new Runnable() {				
 			@Override
 			public void run() {

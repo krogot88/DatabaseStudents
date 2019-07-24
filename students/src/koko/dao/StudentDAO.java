@@ -33,59 +33,31 @@ public class StudentDAO {
 		return result;
 	}
 	
-	public static boolean save(long id,String lastName,String firstName,String fatherName,String dateOfBirth,int groupNumer) {
-		Connection connection = DBManager.getDBConnection();
-		Statement statement;
-		try {
-			ResultSet resultSet = connection.prepareStatement("SELECT id FROM groups WHERE numer="+groupNumer).executeQuery(); // resolve numer VS id
-			resultSet.next();
-			groupNumer = resultSet.getInt("id");
-			statement = connection.createStatement();
-			statement.executeUpdate("UPDATE students SET lastName = '" + lastName 
-									+ "', firstName = '" + firstName
-									+ "', fatherName = '" + fatherName
-									+ "', dateOfBirth = '" + dateOfBirth
-									+ "', groupNumber = " + groupNumer
-									+ " WHERE id = " + id);			
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
+	public static boolean save(long id,String lN,String fN,String faN,String date,int groupNumer) {
+		return executeCommnad("UPDATE students SET lastName = '" + lN + "', firstName = '" + fN + "', fatherName = '" + faN + "', dateOfBirth = '" + date	+ "', groupNumber = XXX WHERE id = " + id, groupNumer);		
 	}
 	
 	public static boolean insert(String lastName,String firstName,String fatherName,String dateOfBirth,int groupNumer) {
-		Connection connection = DBManager.getDBConnection();
-		Statement statement;
-		try {
-			ResultSet resultSet = connection.prepareStatement("SELECT id FROM groups WHERE numer="+groupNumer).executeQuery(); // resolve numer VS id
-			resultSet.next();
-			groupNumer = resultSet.getInt("id");
-			statement = connection.createStatement();
-			statement.executeUpdate("INSERT INTO students(firstName,lastName,fatherName,dateOfBirth,groupNumber) VALUES ('" + firstName + "','" + lastName + "','"+ fatherName + "','"+ dateOfBirth + "',"+  groupNumer + ")");			
-			return true;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}	
-		try {
-			connection.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
+		return executeCommnad("INSERT INTO students(firstName,lastName,fatherName,dateOfBirth,groupNumber) VALUES ('" + firstName + "','" + lastName + "','"+ fatherName + "','"+ dateOfBirth + "', XXX )",groupNumer);		
 	}
 	
 	public static boolean delete(int number) {
+		return executeCommnad("DELETE FROM students WHERE id = " + number, -1);		
+	}
+	
+	public static boolean executeCommnad(String sqlString, int groupNumer) {
 		Connection connection = DBManager.getDBConnection();
 		Statement statement;
 		try {
 			statement = connection.createStatement();
-			statement.executeUpdate("DELETE FROM students WHERE id = " + number);			
+			if(groupNumer != -1) {
+				ResultSet resultSet = connection.prepareStatement("SELECT id FROM groups WHERE numer="+groupNumer).executeQuery(); // resolve numer VS id
+				resultSet.next();
+				groupNumer = resultSet.getInt("id");			
+				statement.executeUpdate(sqlString.replaceFirst("XXX", Integer.toString(groupNumer)));			
+				return true;
+			}
+			statement.executeUpdate(sqlString);
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -95,7 +67,6 @@ public class StudentDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return false;
+		return false;		
 	}
-
 }

@@ -8,7 +8,6 @@ import koko.dao.GroupDAO;
 public class Group {
 	private int number;
 	private String faculty;
-	//private List<Student> students;
 	private int students;
 	
 	public Group(int number, String faculty) {
@@ -79,9 +78,8 @@ public class Group {
 	@Override
 	public String toString() {
 		if(number == 0) {
-			return "- " ;
+			return "- " ;  // this gap " "  is very important, do not delete it!
 		}
 		return number + " " + faculty;
-	}
-	
+	}	
 }
