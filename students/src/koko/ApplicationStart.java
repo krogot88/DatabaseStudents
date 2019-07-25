@@ -27,6 +27,8 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import koko.dao.DBManager;
+import koko.dao.GroupDAO;
+import koko.dao.StudentDAO;
 
 public class ApplicationStart {
 	static JTable table1;
@@ -147,7 +149,7 @@ public class ApplicationStart {
         };
         int result = JOptionPane.showConfirmDialog(null, inputs, "My custom dialog", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            if(Group.save(oldNumber,number.getText(),faculty.getText())) {
+            if(GroupDAO.save(Integer.parseInt(oldNumber),Integer.parseInt(number.getText()),faculty.getText())) {
             	menuGroups();            	
             } else {
             	label.setText("группа  не сохранена");
@@ -168,7 +170,7 @@ public class ApplicationStart {
         String oldgroupNumber = table1.getModel().getValueAt(modelRow, 4).toString().substring(0, table1.getModel().getValueAt(modelRow, 4).toString().indexOf(" ") );
         
         // Set list of exists groups in DataBase to popupwindow
-        List<Group> list = Group.getAllGroups();
+        List<Group> list = GroupDAO.getAllGroups();
         List<String> items = new ArrayList<>();        
         list.forEach((group) -> items.add(String.valueOf(group.getNumber())));
         JComboBox<String> groupNumer = new JComboBox<String>(items.toArray(new String[items.size()]));
@@ -183,7 +185,7 @@ public class ApplicationStart {
         };
         int result = JOptionPane.showConfirmDialog(null, inputs, "My custom dialog", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            if(Student.save(id,lastName.getText(),firstName.getText(),fatherName.getText(),dateOfBirth.getText(),groupNumer.getSelectedItem().toString())) {
+            if(StudentDAO.save(Long.parseLong(id),lastName.getText(),firstName.getText(),fatherName.getText(),dateOfBirth.getText(),Integer.parseInt(groupNumer.getSelectedItem().toString()))) {
             	menuStudents();            	
             } else {
             	label.setText("Not saved");
@@ -196,14 +198,14 @@ public class ApplicationStart {
         JTextField number = new JTextField();
         JTextField faculty = new JTextField();
         final JComponent[] inputs = new JComponent[] {
-                new JLabel("First"),
+                new JLabel("Number"),
                 number,
-                new JLabel("Last"),
+                new JLabel("Faculty"),
                 faculty,	                    
         };
         int result = JOptionPane.showConfirmDialog(null, inputs, "My custom dialog", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            if(Group.insert(number.getText(),faculty.getText())) {            	
+            if(GroupDAO.insert(Integer.parseInt(number.getText()),faculty.getText())) {            	
             	menuGroups();         	
             } else {
             	label.setText("Not inserted");
@@ -217,7 +219,7 @@ public class ApplicationStart {
 		JTextField fatherName = new JTextField();
 		JTextField dateOfBirth = new JTextField();
 		
-		List<Group> list = Group.getAllGroups();
+		List<Group> list = GroupDAO.getAllGroups();
         List<String> items = new ArrayList<>();        
         list.forEach((group) -> items.add(String.valueOf(group.getNumber())));
         JComboBox<String> groupNumer = new JComboBox<String>(items.toArray(new String[items.size()]));
@@ -232,7 +234,7 @@ public class ApplicationStart {
         
         int result = JOptionPane.showConfirmDialog(null, inputs, "My custom dialog", JOptionPane.OK_CANCEL_OPTION);
         if (result == JOptionPane.OK_OPTION) {
-            if(Student.insert(lastName.getText(),firstName.getText(),fatherName.getText(),dateOfBirth.getText(),groupNumer.getSelectedItem().toString())) {            	
+            if(StudentDAO.insert(lastName.getText(),firstName.getText(),fatherName.getText(),dateOfBirth.getText(),Integer.parseInt(groupNumer.getSelectedItem().toString()))) {            	
             	menuStudents();         	
             } else {
             	label.setText("Not inserted");
@@ -246,7 +248,7 @@ public class ApplicationStart {
 		String number = table1.getModel().getValueAt(modelRow, 0).toString();
 		int result = JOptionPane.showConfirmDialog(null, "U sure?", "delete student", JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
-			if(Group.delete(number)) {            	
+			if(GroupDAO.delete(Integer.parseInt(number))) {            	
 				menuGroups();
             } else {
             	label.setText("Not deleted");
@@ -260,7 +262,7 @@ public class ApplicationStart {
 		String number = table1.getModel().getValueAt(modelRow, 5).toString();
 		int result = JOptionPane.showConfirmDialog(null, "U sure?", "delete student", JOptionPane.OK_CANCEL_OPTION);
 		if (result == JOptionPane.OK_OPTION) {
-			if(Student.delete(number)) {            	
+			if(StudentDAO.delete(Integer.parseInt(number))) {            	
 				menuStudents();
             } else {
             	label.setText("Not deleted");

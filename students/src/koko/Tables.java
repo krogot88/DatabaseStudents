@@ -3,6 +3,9 @@ package koko;
 import java.util.Iterator;
 import java.util.List;
 
+import koko.dao.GroupDAO;
+import koko.dao.StudentDAO;
+
 public class Tables {
 	private static Object[][] array;
     private static Object[] columnsHeader;
@@ -17,7 +20,7 @@ public class Tables {
 	}
 	
 	public static void setArrayToGroups() {		
-		List<Group> list = Group.getAllGroups();
+		List<Group> list = GroupDAO.getAllGroups();
 		Object[][] result = new Object[list.size()][3];
 		int i = 0;
 		Iterator<Group> iterator  = list.iterator();
@@ -34,7 +37,7 @@ public class Tables {
 	}
 	
 	public static void setArrayToStudents() {		
-		List<Student> list = Student.getAllStudents();
+		List<Student> list = StudentDAO.getAllStudents();
 		Object[][] result = new Object[list.size()][6];
 		int i = 0;
 		Iterator<Student> iterator  = list.iterator();

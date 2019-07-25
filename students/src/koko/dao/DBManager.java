@@ -14,9 +14,6 @@ public class DBManager {
     private static final String DB_USER = "";
     private static final String DB_PASSWORD = "";
     
-    /**
-     * 
-     */
     public DBManager() { 
     	Connection conn = getDBConnection();
 		try {
@@ -54,6 +51,5 @@ public class DBManager {
             System.out.println(e.getMessage());
         }
         return dbConnection;
-    }    
-
+    } 
 }
